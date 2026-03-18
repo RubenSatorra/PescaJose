@@ -339,3 +339,27 @@ window.shareLog = async function(id) {
         console.log('Compartir cancelado o fallido', err);
     }
 }
+
+function checkSpecialDates() {
+    const now = new Date();
+    const day = now.getDate();
+    const month = now.getMonth() + 1; // Enero es 0, por eso sumamos 1
+    const modal = document.getElementById('birthday-modal');
+    const title = document.getElementById('birthday-title');
+    const message = document.getElementById('birthday-message');
+
+    //Día del Padre (19 de Marzo)
+    if (day === 19 && month === 3) {
+        title.innerText = "¡Feliz Día do Padre!";
+        message.innerText = "Para o mellor capitán. ¡Que teñas un bo día!";
+        modal.classList.remove('hidden');
+    } 
+
+}
+
+// Asegúrate de llamarla al cargar la página:
+document.addEventListener('DOMContentLoaded', () => {
+    checkSpecialDates(); // <-- Añade esto
+    getMarineData();
+    displayLogs();
+});
