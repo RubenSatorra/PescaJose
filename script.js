@@ -170,7 +170,7 @@ function displayLogs() {
                 </div>
             </div>
             <div class="flex flex-col gap-1 items-end">
-                <button onclick="shareLog(${log.id})" class="text-green-400 font-bold text-sm bg-green-900/30 px-2 py-1 rounded">📲 Compartir</button>
+                <button onclick="shareLog(${log.id})" class="text-green-400 font-bold text-sm bg-green-900/30 px-2 py-1 rounded flex justify-center align-center"><img class="size-6" src="img/png/send-message.png" alt="" srcset=""> Compartir</button>
                 <button onclick="deleteLog(${log.id})" class="text-red-400 text-xs italic">Borrar</button>
             </div>
         </div>

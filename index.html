@@ -29,7 +29,7 @@
 </section>
     <header class="p-6 text-center border-b border-slate-700">
         <h1 class="text-3xl font-bold text-blue-400 flex items-center justify-center gap-2"><img class="size-9" src="img/png/fishing.png" alt="" srcset="">  Dashboard de Pesca</h1>
-        <p class="text-slate-400 mt-2">¡Que tengas una buena pesca!</p>
+        <p class="text-slate-400 mt-2">¡Buenos días! ¡Que tengas una buena pesca!</p>
     </header>
 
     <main class="max-w-4xl mx-auto p-4 space-y-6">
@@ -39,6 +39,7 @@
                 <p class="text-sm text-slate-400 uppercase font-bold tracking-wider">Viento</p>
                 
                 <div class="flex items-center justify-center mt-2 gap-2">
+                    <img class="size-8" src="img/png/wind.png" alt="" srcset="">
                     <span id="wind-speed" class="text-4xl font-mono">--</span>
                     <span class="text-slate-400 text-sm">km/h</span>
                 </div>
@@ -48,7 +49,8 @@
 
             <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-xl text-center">
                 <p class="text-sm text-slate-400 uppercase font-bold tracking-wider flex justify-center align-center gap-5">Oleaje</p>
-                <div class="flex items-center justify-center mt-2 gap-2">
+                <div class="flex items-center justify-center mt-2 gap-2"><img class="size-8" src="img/png/wave.png" alt="" srcset="">
+
                     <span id="wave-height" class="text-4xl font-mono">--</span>
                     <span class="text-slate-400 text-sm">m</span>
                 </div>
@@ -84,7 +86,7 @@
             <h3 class="text-lg font-bold mb-4 text-blue-400 flex items-center justify-center gap-2"><img class="size-10" src="img/png/fish.png" alt="" srcset=""> Diario de Capturas</h3>
             
             <div class="space-y-3 mb-6">
-                <input type="text" id="fish-species" placeholder="¿Qué pescaste? (ej. Robalo)" class="w-full p-3 rounded-lg bg-slate-700 border-none text-white outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="text" id="fish-species" placeholder="¿Qué pescaste? (ej. Choco)" class="w-full p-3 rounded-lg bg-slate-700 border-none text-white outline-none focus:ring-2 focus:ring-blue-500">
                 <input type="text" id="fish-weight" placeholder="Peso aprox. (kg)" class="w-full p-3 rounded-lg bg-slate-700 border-none text-white outline-none focus:ring-2 focus:ring-blue-500">
                 <button id="save-log" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg transition flex justify-center align-center gap-2"> <img class="size-6" src="img/png/disk.png" alt="" srcset="">Guardar en diario</button>
             </div>
