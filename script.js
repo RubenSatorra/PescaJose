@@ -357,9 +357,8 @@ function checkSpecialDates() {
 
 }
 
-// Asegúrate de llamarla al cargar la página:
 document.addEventListener('DOMContentLoaded', () => {
-    checkSpecialDates(); // <-- Añade esto
+    checkSpecialDates();
     getMarineData();
     displayLogs();
 });
