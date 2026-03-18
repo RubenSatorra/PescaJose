@@ -31,7 +31,11 @@ async function getMarineData() {
 async function fetchWeather(lat, lon) {
     const urlMarine = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&current=wave_height&hourly=wave_height&timezone=auto&forecast_days=1`;
     const urlWind = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=wind_speed_10m,wind_direction_10m&timezone=auto`;
-
+    // Esta línea actualiza el mapa a la posición del GPS
+    const windyIframe = document.getElementById('windy-map');
+    if (windyIframe) {
+        windyIframe.src = `https://embed.windy.com/embed2.html?lat=${lat}&lon=${lon}&zoom=11&level=surface&overlay=wind&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1`;
+    }
     try {
         const [marineRes, windRes] = await Promise.all([
             fetch(urlMarine).then(r => r.json()),
@@ -151,10 +155,8 @@ function displayLogs() {
     const container = document.getElementById('log-container');
     
     container.innerHTML = logs.map(log => `
-        <div class="bg-slate-700 p-3 rounded-lg flex justify-between items-center border-l-4 border-blue-500">
-            <div class="flex items-center gap-3">
-                ${log.photo ? `<img src="${log.photo}" class="w-12 h-12 rounded object-cover">` : ''}
-                <div>
+    <div class="bg-slate-700 p-4 rounded-2xl flex justify-between items-center border-l-4 border-blue-500 shadow-lg">            <div class="flex items-center gap-3">
+        ${log.photo ? `<img src="${log.photo}" class="w-20 h-20 rounded-xl object-cover shadow-md border border-slate-600">` : ''}                <div>
                     <p class="font-bold text-white">${log.species} <span class="text-sm font-normal text-slate-400">(${log.weight}kg)</span></p>
                     <p class="text-xs text-slate-400">${log.date}</p>
                 </div>
@@ -219,21 +221,57 @@ document.getElementById('export-whatsapp').addEventListener('click', () => {
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
 });
 
+// --- Lógica de Configuración ---
+document.getElementById('save-config').addEventListener('click', () => {
+    let phone = document.getElementById('config-phone').value.trim();
+    
+    // Quitamos espacios, guiones o el símbolo + si los hubiera
+    phone = phone.replace(/\s+/g, '').replace(/-/g, '').replace(/\+/g, '');
+
+    if(phone) {
+        // Si el número empieza por 6 o 7 (móviles España) y no tiene el 34 delante
+        if ((phone.startsWith('6') || phone.startsWith('7')) && !phone.startsWith('34')) {
+            phone = '34' + phone;
+        }
+        
+        localStorage.setItem('emergencyPhone', phone);
+        alert(`Configurado con éxito: +${phone}`);
+        document.getElementById('config-phone').value = phone;
+    } else {
+        alert("Introduce un número válido.");
+    }
+});
+
+// Cargar el teléfono si ya existe al abrir la web
+document.addEventListener('DOMContentLoaded', () => {
+    const savedPhone = localStorage.getItem('emergencyPhone');
+    if(savedPhone) document.getElementById('config-phone').value = savedPhone;
+});
+
+// --- Botón SOS Modificado ---
 document.getElementById('sos-btn').addEventListener('click', () => {
-    if (navigator.geolocation && window.location.protocol !== 'file:') {
+    const phone = localStorage.getItem('emergencyPhone');
+    
+    if(!phone) {
+        alert("Primero debes configurar el teléfono de emergencia en la sección de Ajustes (abajo del todo).");
+        return;
+    }
+
+    if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
-            const accuracy = position.coords.accuracy.toFixed(0); 
-            const phone = "34646567543"; // ¡Cambia esto por tu número!
+            const accuracy = position.coords.accuracy.toFixed(0);
             
             const message = encodeURIComponent(
-                `¡EMERGENCIA EN EL MAR!\n\nNecesito ayuda. Mi ubicación actual es:\n https://maps.google.com/?q=${lat},${lon}\nPrecisión del GPS: ${accuracy} metros.`
+                `¡EMERGENCIA EN EL MAR! \n\n` +
+                `Necesito ayuda. Mi ubicación actual es:\n` +
+                ` https://maps.google.com/?q=${lat},${lon}\n` +
+                `Precisión: ${accuracy}m.`
             );
+
             window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
-        }, () => alert("Error al obtener la ubicación. Asegúrate de tener el GPS activado."), { enableHighAccuracy: true });
-    } else {
-        alert("La ubicación requiere servidor web (HTTPS) para funcionar. (Cuidado: abriste el archivo en local)");
+        }, () => alert("GPS desactivado."), { enableHighAccuracy: true });
     }
 });
 
@@ -270,7 +308,7 @@ window.shareLog = async function(id) {
     // Preparamos el mensaje
     const shareData = {
         title: '¡Mira lo que he pescado!',
-        text: `🎣 ¡Nueva captura! Un ${log.species} de ${log.weight}kg. Pescado el ${log.date}.`
+        text: ` ¡Nueva captura! Un ${log.species} de ${log.weight}kg. Pescado el ${log.date}.`
     };
 
     // Si la captura tiene foto, la empaquetamos

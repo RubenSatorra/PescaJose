@@ -10,15 +10,15 @@
     <meta name="theme-color" content="#38bdf8">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="apple-touch-icon" href="icon-192.png">
-    <a href="https://www.flaticon.com/free-icons/fishing" title="fishing icons">Fishing icons created by Flat Icons - Flaticon</a>
+    <link rel="apple-touch-icon" href="img/png/icon-192.png">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 </head>
 <body class="bg-slate-900 text-white font-sans min-h-screen">
-<section class="p-4">
+ <!--<a href="https://www.flaticon.com/free-icons/fishing" title="fishing icons">Fishing icons created by Flat Icons - Flaticon</a>-->
+    <section class="p-4">
     <button id="sos-btn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-6 rounded-2xl shadow-lg flex items-center justify-center gap-3 transition-transform active:scale-95">
         <span class="text-2xl">🚨</span>
         ENVIAR MI UBICACIÓN (SOS)
@@ -32,8 +32,7 @@
 
     <main class="max-w-4xl mx-auto p-4 space-y-6">
         
-        <section id="weather-cards" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-xl">
+            <section id="weather-cards" class="grid grid-cols-1 md:grid-cols-2 gap-4">            <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-xl">
                 <p class="text-sm text-slate-400 uppercase font-bold tracking-wider">Viento</p>
                 <div class="flex items-center mt-2">
                     <span id="wind-speed" class="text-4xl font-mono">--</span>
@@ -50,13 +49,14 @@
                 </div>
             </div>
 
-            <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-xl">
+            <!-- esto es de pago f
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-xl">
                 <p class="text-sm text-slate-400 uppercase font-bold tracking-wider">Temp. Agua</p>
                 <div class="flex items-center mt-2">
                     <span id="water-temp" class="text-4xl font-mono">--</span>
                     <span class="ml-2 text-slate-300">°C</span>
                 </div>
-            </div>
+            </div>-->
         </section>
 
         <section class="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-xl">
@@ -70,7 +70,7 @@
             <iframe 
                 id="windy-map"
                 class="w-full h-full"
-                src="https://embed.windy.com/embed2.html?lat=43.36&lon=-8.41&zoom=10&level=surface&overlay=wind&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1" 
+                src="https://embed.windy.com/embed2.html?lat=42.42&lon=-8.70&zoom=10&level=surface&overlay=wind&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1" 
                 frameborder="0">
             </iframe>
         </section>
@@ -105,6 +105,23 @@
             <div id="storage-bar" class="bg-blue-500 h-full transition-all" style="width: 0%"></div>
         </div>
         <p id="storage-text" class="text-[10px] text-slate-500 mt-1 uppercase text-right">Espacio: 0%</p>
+
+        <section class="bg-slate-800 p-4 rounded-2xl border border-slate-700 shadow-xl mt-10">
+            <details class="group">
+                <summary class="list-none flex justify-between items-center cursor-pointer text-slate-400 font-bold uppercase text-xs tracking-widest">
+                    Ajustes de Seguridad y Contacto
+                    <span class="transition group-open:rotate-180">▼</span>
+                </summary>
+                <div class="mt-4 space-y-3 border-t border-slate-700 pt-4">
+                    <div>
+                        <label class="text-xs text-slate-400">Teléfono de Emergencia (con prefijo, ej: 34600...)</label>
+                        <input type="tel" id="config-phone" placeholder="34..." class="w-full p-2 rounded bg-slate-700 border-none text-white mt-1">
+                    </div>
+                    <button id="save-config" class="w-full bg-blue-600 py-2 rounded font-bold text-sm">Guardar Configuración</button>
+                    <p class="text-[10px] text-slate-500 italic text-center">Estos datos se guardan solo en este móvil, nunca se suben a internet.</p>
+                </div>
+            </details>
+        </section>
 
     </main>
 
