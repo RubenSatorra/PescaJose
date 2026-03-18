@@ -121,13 +121,20 @@ document.getElementById('save-log').addEventListener('click', () => {
     
     if(!species || !weight) return alert("Rellena los datos, patrón.");
 
-    const newLog = {
-        id: Date.now(),
-        date: new Date().toLocaleDateString(),
-        species,
-        weight,
-        photo: currentPhotoBase64
-    };
+const newLog = {
+    id: Date.now(),
+    // .toLocaleString() añade la fecha y la hora automáticamente
+    date: new Date().toLocaleString([], { 
+        day: '2-digit', 
+        month: '2-digit', 
+        year: 'numeric', 
+        hour: '2-digit', 
+        minute: '2-digit' 
+    }),
+    species,
+    weight,
+    photo: currentPhotoBase64
+};
 
     let logs = JSON.parse(localStorage.getItem('fishingLogs') || '[]');
     
@@ -158,7 +165,8 @@ function displayLogs() {
     <div class="bg-slate-700 p-4 rounded-2xl flex justify-between items-center border-l-4 border-blue-500 shadow-lg">            <div class="flex items-center gap-3">
         ${log.photo ? `<img src="${log.photo}" class="w-20 h-20 rounded-xl object-cover shadow-md border border-slate-600">` : ''}                <div>
                     <p class="font-bold text-white">${log.species} <span class="text-sm font-normal text-slate-400">(${log.weight}kg)</span></p>
-                    <p class="text-xs text-slate-400">${log.date}</p>
+                    <p class="text-xs text-slate-400 font-mono">📅 ${log.date}</p>                
+
                 </div>
             </div>
             <div class="flex flex-col gap-1 items-end">
@@ -308,7 +316,7 @@ window.shareLog = async function(id) {
     // Preparamos el mensaje
     const shareData = {
         title: '¡Mira lo que he pescado!',
-        text: ` ¡Nueva captura! Un ${log.species} de ${log.weight}kg. Pescado el ${log.date}.`
+        text: ` ¡Nueva captura! Un ${log.species} de ${log.weight}kg. \n Pescado el ${log.date}.`
     };
 
     // Si la captura tiene foto, la empaquetamos
