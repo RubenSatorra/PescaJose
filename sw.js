@@ -4,6 +4,6 @@ self.addEventListener('install', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-  // Aquí podrías gestionar el modo offline, pero por ahora solo dejamos que pase la petición
+  //por ahora solo dejamos que pase la petición
   e.respondWith(fetch(e.request));
 });

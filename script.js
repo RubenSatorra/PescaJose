@@ -1,8 +1,8 @@
 // ==========================================
 // 1. CONFIGURACIÓN INICIAL
 // ==========================================
-let lat = 43.3614; // Coordenadas por defecto (A Coruña)
-let lon = -8.4105;
+let lat = 42.4271; // Coordenadas por defecto
+let lon =  -8.7031;
 let myChart; 
 let currentPhotoBase64 = "";
 
