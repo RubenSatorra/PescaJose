@@ -350,7 +350,7 @@ function checkSpecialDates() {
 
     //Día del Padre (19 de Marzo)
     if (day === 19 && month === 3) {
-        title.innerText = "¡Feliz Día do Padre!";
+        title.innerText = "¡Feliz Día do Pai!";
         message.innerText = "Para o mellor capitán. ¡Que teñas un bo día!";
         modal.classList.remove('hidden');
     } 
